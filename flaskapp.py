@@ -126,7 +126,7 @@ def check():
     return render_template("login.html")
 
 
-#to create profile view paths
+#to update profiles
 @app.route('/edit-profile/<string:email>', methods=['PUT'])
 def editProfile(email):
     data = request.get_json()
