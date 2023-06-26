@@ -6,31 +6,31 @@
   </head>
   <body>
     <div class="container-login">
+
         <div class="top-btn1">
             <a href="/">Home</a> 
         </div>
+
         <div class="top-btn2">
             <a href="/signup">Sign Up</a> 
         </div>
+
         <h1 class="login-title">Login</h1>
         {{msg}} 
+
         <form class="login-form" action="/edit" method="post">
+
+          <div class="form-fields-login">
             <div class="form-fields-login">
-                <div class="form-fields-login">
-                    <input type="email" id="email" name="email" placeholder="Enter your Username" required />
-                </div>
-                <div class="form-fields-login">
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      required
-                      placeholder="Enter your Password" 
-                    />
-                </div>
-            <div class="form-fields-login">
-              <input type="submit" value="Login" />
+              <input type="email" id="email" name="email" placeholder="Enter Your Email" required />
             </div>
+            <div class="form-fields-login">
+              <input type="password" id="password" name="password" required placeholder="Enter Your Password" />
+            </div>
+          <div class="form-fields-login">
+            <input type="submit" value="Login" />
+          </div>
+
         </form>
         
         <div>

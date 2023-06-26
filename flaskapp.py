@@ -20,6 +20,8 @@ dynamodb = boto3.resource(
 
 @app.route('/')
 def index():
+    #dynamodb.create_table_reg_users()
+    #return 'Table Created'
     table = dynamodb.Table('reg_users')
 
     response = table.scan(ProjectionExpression='email, reg_number, #n', ExpressionAttributeNames={'#n': 'name'})
@@ -30,11 +32,13 @@ def index():
         return render_template('index.html', users=sorted_users)
 
     return 'No users found'
+    
 
 @app.route('/login')
 def login():
     return render_template('login.html')
 
+# function to generate registration number
 def generate_registration_number():
     table = dynamodb.Table('reg_users')
     response = table.scan()
@@ -44,6 +48,7 @@ def generate_registration_number():
         return str(last_registration_number + 1)
     else:
         return '1000'  # Initial registration number
+
         
 @app.route('/signup')
 def signup():
@@ -53,9 +58,9 @@ def signup():
 @app.route('/edit')
 def edit():
     return render_template('edit.html')
-
     
 
+#to create accounts
 @app.route('/signup-action', methods=['post'])
 def signupAction():
     if request.method == 'POST':
@@ -90,6 +95,8 @@ def signupAction():
         return render_template('login.html',msg = msg)
     return render_template('signup.html')
 
+
+#to pass data to edit page 
 @app.route('/edit',methods = ['post'])
 def check():
     if request.method=='POST':
@@ -118,6 +125,8 @@ def check():
             return render_template("edit.html",reg_number = reg_number, email = email, name = name, contact = contact, degree_program = degree_program, gpa = gpa, skills = skills, introduction = introduction)
     return render_template("login.html")
 
+
+#to create profile view paths
 @app.route('/edit-profile/<string:email>', methods=['PUT'])
 def editProfile(email):
     data = request.get_json()
@@ -159,6 +168,8 @@ def editProfile(email):
         'response': response
     }
     
+
+#to create profile view paths
 @app.route('/profile/<string:reg_number>')
 def viewProfile(reg_number):
     table = dynamodb.Table('reg_users')
@@ -174,6 +185,3 @@ def viewProfile(reg_number):
     return 'User not found'
 
 
-
-if __name__ == '__main__':
-    app.run(debug=True,port=8080,host='0.0.0.0')

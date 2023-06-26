@@ -108,7 +108,7 @@ select {
 }
 
 input[type="email"].readonly-input,
-input[type="number"].readonly-input{
+input[type="number"].readonly-input {
   background-color: #f5ecf2;
 }
 
@@ -156,7 +156,7 @@ input[type="submit"]:hover {
 .profile-btn {
   margin-top: 2vh;
 }
-.profile-btn a{
+.profile-btn a {
   padding: 0.6vw 1.2vw;
   text-align: center;
   background-color: #ffffff;
@@ -170,13 +170,13 @@ input[type="submit"]:hover {
 }
 
 .profile-btn:hover,
-.profile-btn a:hover{
+.profile-btn a:hover {
   background-color: #f3eded;
 }
 
 .top-btn1 a,
 .top-btn2 a,
-.top-btn3 a{
+.top-btn3 a {
   padding: 0.6vw 1.5vw;
   margin-top: 1vh;
   text-align: center;
@@ -200,10 +200,9 @@ input[type="submit"]:hover {
   right: 21vw;
 }
 
-
 .top-btn1 a:hover,
 .top-btn2 a:hover,
-.top-btn3 a:hover{
+.top-btn3 a:hover {
   background-color: #755468;
 }
 
