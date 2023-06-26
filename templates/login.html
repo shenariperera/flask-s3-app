@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+  </head>
+  <body>
+    <div class="container-login">
+        <div class="top-btn2">
+            <a href="/signup">Sign Up</a> 
+        </div>
+        <h1 class="login-title">Login</h1>
+        {{msg}} 
+        <form class="login-form" action="/edit" method="post">
+            <div class="form-fields-login">
+                <div class="form-fields-login">
+                    <input type="email" id="email" name="email" placeholder="Enter your Username" required />
+                </div>
+                <div class="form-fields-login">
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      required
+                      placeholder="Enter your Password" 
+                    />
+                </div>
+            <div class="form-fields-login">
+              <input type="submit" value="Login" />
+            </div>
+        </form>
+        
+        <div>
+          <img class="login-img" src="static/img/login.png" alt="Interview" />
+        </div>
+      
+    </div>
+  </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+   
+
+  </head>
+  <body style="background: #ffffff; color: #59404f">
+    <div class="container">
+      <div class="top-btn1">
+        <a href="/login">Login</a>
+      </div>
+      <div class="top-btn2">
+        <a href="/signup">Sign Up</a>
+      </div>
+      <h1 class="edit-title">EduX Technical University</h1>
+      <div class="container-section">
+          <div class="user-block">
+            {% for user in users %}
+              <div class="user-card">
+                    <div>
+                     {{ user.name }}
+                    </div>
+                    <div>
+                     {{ user.reg_number }}
+                    </div>
+                    <div class="profile-btn">
+                        <a target="_blank" href="/profile/{{ user.reg_number }}">View Profile</a>
+                    </div>
+              </div>
+            {% endfor %}
+          </div>
+          <div>
+            <img class="signup-img" src="static/img/profiles.png" alt="Interview" />
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

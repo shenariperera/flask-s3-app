@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit Profile</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+  </head>
+  <body style="background: #ffffff; color: #59404f">
+    <div class="container">
+      <div class="top-btn2">
+        <a href="/">Logout</a>
+      </div>
+      <h1 class="edit-title">Welcome {{name}}</h1>
+      <h2>Edit Your Profile</h2>
+      <div class="container-section">
+        <p class="success-msg">{{msg}}</p>
+        <div>
+          <form id="edit-form" >
+            <div class="form-fields">
+              
+              <div class="field">
+                <div class="field-label">
+                  <label for="email">Email:</label>
+                </div>
+                <div>
+                  <input class="readonly-input" type="email" id="email" name="email" value={{email}} readonly />
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="field-label">
+                  <label for="reg_number">Registration Number:</label>
+                </div>
+                <div>
+                  <input
+                    class="readonly-input"
+                    type="number"
+                    min="1000"
+                    max="9999"
+                    id="reg_number"
+                    name="reg_number"
+                    value="{{reg_number}}"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="field-label">
+                  <label for="name">Full Name:</label>
+                </div>
+                <div>
+                  <input type="text" id="name" name="name" value="{{name}}" />
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="field-label">
+                  <label for="contact_no">Contact No:</label>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    id="contact"
+                    name="contact"
+                    value="{{contact}}"
+                  />
+                </div>
+              </div>
+              
+              <div class="field">
+                <div class="field-label">
+                  <label for="degree_program">Degree Program:</label>
+                </div>
+                <div>
+                  <select id="degree_program" name="degree_program">
+                    <option value="Bsc computer science and engineering" {% if degree_program == 'Bsc computer science and engineering' %}selected{% endif %}>
+                      BSC Computer Science and Engineering
+                    </option>
+                    <option value="Bsc mechanical engineering" {% if degree_program == 'Bsc mechanical engineering' %}selected{% endif %}>
+                      BSC Mechanical Engineering
+                    </option>
+                    <option value="Bsc civil engineering" {% if degree_program == 'Bsc civil engineering' %}selected{% endif %}>
+                      BSC Civil Engineering
+                    </option>
+                    <option value="Bsc electrical engineering" {% if degree_program == 'Bsc electrical engineering' %}selected{% endif %}>
+                      BSC Electrical Engineering
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="field-label">
+                  <label for="gpa">Current GPA:</label>
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    step="0.01"
+                    id="gpa"
+                    name="gpa"
+                    value="{{gpa}}"
+                  />
+                </div>
+              </div>
+
+              <div class="field">
+                <div class="field-label">
+                  <label for="skills">Skills:</label>
+                </div>
+                <div>
+                  <textarea id="skills" name="skills" rows="8"> {{skills}} </textarea>
+                </div>
+              </div>
+              
+              <div class="field">
+                <div class="field-label">
+                  <label for="introduction">Introduction:</label>
+                </div>
+                <div>
+                  <textarea
+                    id="introduction"
+                    name="introduction"
+                    rows="8"
+                  >{{introduction}} </textarea>
+                </div>
+              </div>
+              
+            </div>
+
+            <div>
+              <input class="signup-btn" type="submit" value="Update" />
+            </div>
+          </form>
+        </div>
+        <div>
+          <img class="signup-img" src="static/img/interview.png" alt="Interview" />
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      document.getElementById('edit-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        const email = document.getElementById('email').value;
+        const name = document.getElementById('name').value;
+        const contact = document.getElementById('contact').value;
+        const degree_program = document.getElementById('degree_program').value;
+        const gpa = document.getElementById('gpa').value;
+        const skills = document.getElementById('skills').value;
+        const introduction = document.getElementById('introduction').value;
+    
+        // Get form data
+        const formData = {
+          email: email,
+          name: name,
+          contact: contact,
+          degree_program: degree_program,
+          gpa: gpa,
+          skills: skills,
+          introduction: introduction
+        };
+    
+        // Send PUT request using fetch
+        fetch('/edit-profile/' + email, {
+          method: 'PUT',
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(function(response) {
+          console.log(formData);
+          console.log('PUT request successful');
+          alert('Updated successfully');
+          window.location.reload();
+        })
+        .catch(function(error) {
+          console.log('Error:', error);
+          alert('Error');
+        });
+      });
+    </script>
+
+
+
+  </body>
+</html>
