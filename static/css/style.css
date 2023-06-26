@@ -174,7 +174,8 @@ input[type="submit"]:hover {
 }
 
 .top-btn1 a,
-.top-btn2 a {
+.top-btn2 a,
+.top-btn3 a{
   padding: 7px 10px;
   margin-top: 5px;
   text-align: center;
@@ -194,13 +195,18 @@ input[type="submit"]:hover {
   right: 3%;
 }
 
+.top-btn3 a {
+  right: 23%;
+}
+
+
 .top-btn1 a:hover,
 .top-btn2 a:hover{
   background-color: #755468;
 }
 
 .user-block {
-  margin-top: 100px;
+  margin-top: 60px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
