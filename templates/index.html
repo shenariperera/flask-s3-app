@@ -20,9 +20,9 @@
       <h1 class="edit-title">EduX Technical University</h1>
 
       <div class="container-section">
-
         <div class="user-block">
           {% for user in users %}
+            <img class="profile-pic-home" src="{{ user.image }}" alt="User Image"></img>
             <div class="user-card">
               <div>
                 {{ user.name }}

@@ -87,6 +87,15 @@ label {
   display: flex;
 }
 
+.field-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1vh 0;
+}
+
+
+
 .field-label {
   width: 22vw;
 }
@@ -95,7 +104,6 @@ input[type="text"],
 input[type="email"],
 input[type="number"],
 input[type="password"],
-input[type="file"],
 textarea,
 select {
   padding: 0.8vw;
@@ -107,6 +115,16 @@ select {
   font-size: 1.1vw;
   width: 25vw;
 }
+
+input[type="file"] {
+  padding: 0.8vw;
+  color: #666;
+  margin-bottom: 2vh;
+  font-size: 1.1vw;
+  width: 15vw;
+  cursor: pointer;
+}
+
 
 input[type="email"].readonly-input,
 input[type="number"].readonly-input {
@@ -131,6 +149,10 @@ input[type="submit"] {
 
 input.signup-btn {
   margin-left: 22vw;
+}
+
+input.image-btn {
+  width: 15vw;
 }
 
 input[type="submit"]:hover {
@@ -223,6 +245,7 @@ input[type="submit"]:hover {
   border-radius: 0.4vw;
   font-size: 1.3vw;
   margin: 1vw;
+  margin-bottom: 6vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -239,4 +262,72 @@ td {
 
 .tb-title {
   width: 20vw;
+}
+
+
+.profile-pic {
+  display: flex;
+  height: 8vw;
+  width: 8vw;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  color: transparent;
+  transition: all .3s ease;
+  text-decoration: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 2vw;
+}
+
+.profile-pic-home {
+  position: relative;
+  top: -3vh;
+  left: 5vw;
+  border-radius: 50%;
+  width: 6vw;
+  height: 6vw;
+}
+
+.profile-div {
+  display: flex;
+  height: 25vw;
+  width: 25vw;
+  padding: 5vw;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  color: transparent;
+  transition: all .3s ease;
+  text-decoration: none;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile-img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.profile-div:hover {
+  background-color: rgba(0,0,0,.5);
+  z-index: 10000;
+  color: #ffffff;
+  transition: all .3s ease;
+  text-decoration: none;
+}
+
+.profile-pic span {
+  color: #ffffff;
+}
+
+.img-header {
+  display: flex;
 }

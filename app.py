@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 import key_config as keys
 import boto3 
 import dynamoDB_create_table as dynamodb_ct
@@ -28,11 +28,11 @@ s3 = boto3.resource(
 
 @app.route('/')
 def index():
-    #dynamodb.create_table_reg_users()
+    #dynamodb.create_table_reg_users2()
     #return 'Table Created'
-    table = dynamodb.Table('reg_users')
+    table = dynamodb.Table('reg_users2')
 
-    response = table.scan(ProjectionExpression='email, reg_number, #n', ExpressionAttributeNames={'#n': 'name'})
+    response = table.scan(ProjectionExpression='email, reg_number, image, #n', ExpressionAttributeNames={'#n': 'name'})
 
     if 'Items' in response:
         users = response['Items']
@@ -48,7 +48,7 @@ def login():
 
 # function to generate registration number
 def generate_registration_number():
-    table = dynamodb.Table('reg_users')
+    table = dynamodb.Table('reg_users2')
     response = table.scan()
     items = response['Items']
     if items:
@@ -94,10 +94,10 @@ def signupAction():
         )
     
         encoded_object_key = urllib.parse.quote(filename)
-        object_url = f"https://{bucket_name}.s3.amazonaws.com/{encoded_object_key}"
+        image_url = f"https://{bucket_name}.s3.amazonaws.com/{encoded_object_key}"
         
         
-        table = dynamodb.Table('reg_users')
+        table = dynamodb.Table('reg_users2')
         
         table.put_item(
                 Item={
@@ -110,7 +110,7 @@ def signupAction():
         'gpa' : gpa,
         'skills' : skills,
         'introduction' : introduction,
-        'image' : object_url,
+        'image' : image_url,
             }
         )
         msg = "Registration Complete. Please Login to your account !"
@@ -127,7 +127,7 @@ def check():
         email = request.form['email']
         password = request.form['password']
         
-        table = dynamodb.Table('reg_users')
+        table = dynamodb.Table('reg_users2')
         response = table.query(
                 KeyConditionExpression=Key('email').eq(email)
         )
@@ -149,12 +149,11 @@ def check():
             return render_template("edit.html",reg_number = reg_number, email = email, name = name, contact = contact, degree_program = degree_program, gpa = gpa, skills = skills, introduction = introduction, image = image)
     return render_template("login.html")
 
-
 #to update profiles
 @app.route('/edit-profile/<string:email>', methods=['PUT'])
 def editProfile(email):
     data = request.get_json()
-    table = dynamodb.Table('reg_users')
+    table = dynamodb.Table('reg_users2')
 
     response = table.update_item(
         Key={
@@ -192,11 +191,45 @@ def editProfile(email):
         'response': response
     }
     
+@app.route('/image-update', methods=['POST'])
+def imageUpdate():
+    if request.method == 'POST':
+        reg_number = request.form['reg_number']
+        email = request.form['email']
+        file = request.files['image']
+        filename = file.filename
+        bucket_name = 'flask-s3-app'
+        bucket = s3.Bucket(bucket_name)
+        bucket.put_object(
+            Key=filename,
+            Body=file,
+            ContentType='image/jpeg',
+            ContentDisposition='inline'
+        )
+    
+        encoded_object_key = urllib.parse.quote(filename)
+        image_url = f"https://{bucket_name}.s3.amazonaws.com/{encoded_object_key}"
+        
+        table = dynamodb.Table('reg_users2')
+        
+        response = table.get_item(Key={'email': email})
+        item = response.get('Item', {})
+        
+        item['image'] = image_url
+        
+        table.put_item(Item=item)
+        
+    
+        return redirect('/profile/' + reg_number)
+        
+    return render_template('edit.html')
+
+    
 
 #to create profile view paths
 @app.route('/profile/<string:reg_number>')
 def viewProfile(reg_number):
-    table = dynamodb.Table('reg_users')
+    table = dynamodb.Table('reg_users2')
 
     response = table.scan(
         FilterExpression=Attr('reg_number').eq(reg_number)

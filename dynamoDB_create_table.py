@@ -19,7 +19,7 @@ dynamodb_resource = boto3.resource(
 
 def create_table():
     table = dynamodb_resource.create_table(
-    TableName = 'reg_users', # Name of the table
+    TableName = 'reg_users2', # Name of the table
         KeySchema = [
             {
                'AttributeName': 'email',

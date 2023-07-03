@@ -3,7 +3,7 @@
 
 <head>
   <title>Edit Profile</title>
-  <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+  <link rel="stylesheet" href="static/css/style.css" />
 </head>
 
 <body style="background: #ffffff; color: #59404f">
@@ -13,7 +13,10 @@
       <a href="/">Logout</a>
     </div>
     
-    <h1 class="edit-title">Welcome {{name}}</h1>
+    <div class="img-header">
+      <div class="profile-pic" style="background-image: url('{{image}}')"></div>
+      <h1 class="edit-title">Welcome {{name}}</h1>
+    </div>
 
     <h2>Edit Your Profile</h2>
 
@@ -52,16 +55,6 @@
               </div>
               <div>
                 <input type="text" id="name" name="name" value="{{name}}" required />
-              </div>
-            </div>
-            
-            <div class="field">
-              <div class="field-label">
-                <label for="image">Upload Image:</label>
-              </div>
-              <div>
-                <img src="{{image}}"></img>
-                <input type="file" id="image"  name="image" required />
               </div>
             </div>
 
@@ -137,55 +130,64 @@
 
       </div>
 
-      <div>
-        <img class="signup-img" src="static/img/interview.png" alt="Interview" />
+      <div class="profile-div" style="background-image: url('{{image}}')">
+        <form id="image-update" action="/image-update" method="POST" enctype="multipart/form-data">
+          <div class="field-img">
+            <input type="file" id="image" name="image">
+            <div>
+                <input  type="number" id="reg_number" name="reg_number" value="{{reg_number}}" hidden />
+               <input type="email" id="email" name="email" value="{{email}}" hidden />
+              <input class="image-btn" type="submit" value="Update Image" />
+            </div>
+          </div>
+        </form>  
       </div>
 
     </div>
   </div>
 
-  <script>
-    document.getElementById('edit-form').addEventListener('submit', function (event) {
-      event.preventDefault(); // Prevent form submission
-      const email = document.getElementById('email').value;
-      const name = document.getElementById('name').value;
-      const contact = document.getElementById('contact').value;
-      const degree_program = document.getElementById('degree_program').value;
-      const gpa = document.getElementById('gpa').value;
-      const skills = document.getElementById('skills').value;
-      const introduction = document.getElementById('introduction').value;
-
-      // Get form data
-      const formData = {
-        email: email,
-        name: name,
-        contact: contact,
-        degree_program: degree_program,
-        gpa: gpa,
-        skills: skills,
-        introduction: introduction
-      };
-
-      // Send PUT request using fetch
-      fetch('/edit-profile/' + email, {
-        method: 'PUT',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(function (response) {
-          console.log(formData);
-          console.log('PUT request successful');
-          alert('Updated successfully');
-          window.location.reload();
+   <script>
+      document.getElementById('edit-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form submission
+        const email = document.getElementById('email').value;
+        const name = document.getElementById('name').value;
+        const contact = document.getElementById('contact').value;
+        const degree_program = document.getElementById('degree_program').value;
+        const gpa = document.getElementById('gpa').value;
+        const skills = document.getElementById('skills').value;
+        const introduction = document.getElementById('introduction').value;
+  
+        // Get form data
+        const formData = {
+          email: email,
+          name: name,
+          contact: contact,
+          degree_program: degree_program,
+          gpa: gpa,
+          skills: skills,
+          introduction: introduction
+        };
+  
+        // Send PUT request using fetch
+        fetch('/edit-profile/' + email, {
+          method: 'PUT',
+          body: JSON.stringify(formData),
+          headers: {
+            'Content-Type': 'application/json'
+          }
         })
-        .catch(function (error) {
-          console.log('Error:', error);
-          alert('Error');
-        });
-    });
-  </script>
+          .then(function (response) {
+            console.log(formData);
+            console.log('PUT request successful');
+            alert('Updated successfully');
+            window.location.reload();
+          })
+          .catch(function (error) {
+            console.log('Error:', error);
+            alert('Error');
+          });
+      });
+    </script>
 
 </body>
 
