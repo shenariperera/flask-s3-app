@@ -140,12 +140,13 @@ def check():
         gpa = items[0]['gpa']
         skills = items[0]['skills']
         introduction = items[0]['introduction']
+        image = items[0]['image']
         
         print(items[0]['password'])
         
         if password == items[0]['password']:
             
-            return render_template("edit.html",reg_number = reg_number, email = email, name = name, contact = contact, degree_program = degree_program, gpa = gpa, skills = skills, introduction = introduction)
+            return render_template("edit.html",reg_number = reg_number, email = email, name = name, contact = contact, degree_program = degree_program, gpa = gpa, skills = skills, introduction = introduction, image = image)
     return render_template("login.html")
 
 

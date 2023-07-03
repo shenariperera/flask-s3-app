@@ -51,7 +51,17 @@
                 <label for="name">Full Name:</label>
               </div>
               <div>
-                <input type="text" id="name" name="name" value="{{name}}" />
+                <input type="text" id="name" name="name" value="{{name}}" required />
+              </div>
+            </div>
+            
+            <div class="field">
+              <div class="field-label">
+                <label for="image">Upload Image:</label>
+              </div>
+              <div>
+                <img src="{{image}}"></img>
+                <input type="file" id="image"  name="image" required />
               </div>
             </div>
 
@@ -60,7 +70,7 @@
                 <label for="contact_no">Contact No:</label>
               </div>
               <div>
-                <input type="text" id="contact" name="contact" value="{{contact}}" />
+                <input type="text" id="contact" name="contact" value="{{contact}}" required />
               </div>
             </div>
 
@@ -95,7 +105,7 @@
                 <label for="gpa">Current GPA:</label>
               </div>
               <div>
-                <input type="number" id="gpa" step="0.01" name="gpa" value="{{gpa}}" />
+                <input type="number" id="gpa" step="0.01" name="gpa" value="{{gpa}}" required />
               </div>
             </div>
 
@@ -104,7 +114,7 @@
                 <label for="skills">Skills:</label>
               </div>
               <div>
-                <textarea id="skills" name="skills" rows="8"> {{skills}} </textarea>
+                <textarea id="skills" name="skills" rows="8" required> {{skills}} </textarea>
               </div>
             </div>
 
@@ -113,7 +123,7 @@
                 <label for="introduction">Introduction:</label>
               </div>
               <div>
-                <textarea id="introduction" name="introduction" rows="8">{{introduction}} </textarea>
+                <textarea id="introduction" name="introduction" rows="8" required>{{introduction}} </textarea>
               </div>
             </div>
 
