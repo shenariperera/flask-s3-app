@@ -5,12 +5,20 @@ import boto3
 import dynamoDB_create_table as dynamodb_ct
 from boto3.dynamodb.conditions import Key, Attr
 from operator import itemgetter
+import urllib.parse
 
 app = Flask(__name__)
 
 
 dynamodb = boto3.resource(
     'dynamodb',
+    #aws_access_key_id     = keys.ACCESS_KEY_ID,
+    #aws_secret_access_key = keys.ACCESS_SECRET_KEY,
+    region_name           = keys.REGION_NAME,
+)
+
+s3 = boto3.resource(
+    's3',
     #aws_access_key_id     = keys.ACCESS_KEY_ID,
     #aws_secret_access_key = keys.ACCESS_SECRET_KEY,
     region_name           = keys.REGION_NAME,
@@ -74,6 +82,20 @@ def signupAction():
         introduction = request.form['introduction']
         reg_number = request.form['reg_number']
         
+        file = request.files['image']
+        filename = file.filename
+        bucket_name = 'flask-s3-app'
+        bucket = s3.Bucket(bucket_name)
+        bucket.put_object(
+            Key=filename,
+            Body=file,
+            ContentType='image/jpeg',
+            ContentDisposition='inline'
+        )
+    
+        encoded_object_key = urllib.parse.quote(filename)
+        object_url = f"https://{bucket_name}.s3.amazonaws.com/{encoded_object_key}"
+        
         
         table = dynamodb.Table('reg_users')
         
@@ -88,6 +110,7 @@ def signupAction():
         'gpa' : gpa,
         'skills' : skills,
         'introduction' : introduction,
+        'image' : object_url,
             }
         )
         msg = "Registration Complete. Please Login to your account !"
@@ -184,3 +207,6 @@ def viewProfile(reg_number):
 
     return 'User not found'
 
+
+if __name__ == '__main__':
+    app.run(debug=True,port=8080,host='0.0.0.0')
